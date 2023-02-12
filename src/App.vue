@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import FileInput from './components/FileInput.vue'
+import DiffOutput from './components/DiffOutput.vue'
 
 var tab = ref('URI')
+var payload = ref('')
 function uriDecode() {
 }
 function uriEncode() {
@@ -10,7 +12,7 @@ function uriEncode() {
 </script>
 
 <template>
-  <div class="content">
+  <div class="payload-input">
     <h1>Welcome to ReUri</h1>
     <h2>Encode and decode URIs</h2>
     <div class="tabs">
@@ -29,12 +31,13 @@ https://example2.com"></textarea>
       <button v-show="tab !== 'URI'" type="submit" @click.prevent="uriEncode" id="encode-btn">Decode</button>
       <button v-show="tab !== 'URI'" type="submit" @click.prevent="uriDecode" id="decode-btn">Encode</button>
     </div>
+    <DiffOutput v-show="tab !== 'URI' && payload" />
   </div>
 </template>
 
 <style scoped>
-.content {
-  width: min(95vw, 70rem);
+.payload-input {
+  width: min(95vw, 90rem);
   margin: 0 auto;
   text-align: center;
 }
@@ -91,7 +94,7 @@ https://example2.com"></textarea>
 h1 {
   font-size: clamp(2.3rem, 4.5vw, 4rem);
   line-height: 1.1;
-  margin-block: 5rem 0.5rem;
+  margin-block: 3rem 0.5rem;
 }
 
 h2 {
