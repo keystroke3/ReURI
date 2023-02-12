@@ -4,12 +4,14 @@
             <div @dragenter.prevent="toggleActive" @dragleave.prevent="toggleActive" @dragover.prevent
                 @drop.prevent="handleDrop" class="dropzone"
                 :class="{ 'active-dropzone': active, 'file-selected': file.fileName }">
-                <span>Drag and Drop</span>
-                <span>Or</span>
+                <span name="Selected File" class="file-name" v-show="file.fileName">{{ file.fileName }}</span>
+                <span name="Select File" v-show="!file.fileName">Drag and Drop</span>
+                <span v-show="!file.fileName">Or</span>
                 <label class="file-chooser" for="selectFile">{{ chooserLabel() }}</label>
-                <input type="file" name="Upload" id="selectFile" @change="handleChange">
+                <input type="file" accept="text/*" name="Upload" id="selectFile" @change="handleChange">
             </div>
         </form>
+
     </div>
 </template>
 
@@ -79,6 +81,12 @@ function handleDrop(e: DragEvent) {
     padding: 1rem;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.file-name {
+    width: min(60vw, 40rem);
+    padding: 1rem;
+    overflow-x: auto;
 }
 
 label {
