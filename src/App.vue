@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, shallowRef } from 'vue';
 import FileInput from './components/FileInput.vue'
 import DiffOutput from './components/DiffOutput.vue'
+import SingleUri from './components/SingleUri.vue';
+import MultiUri from './components/MultiUri.vue';
 
-var tab = ref('URI')
-var payload = ref('')
+const tab = ref('URI')
+const activeInput = shallowRef(SingleUri)
+
+
 function uriDecode() {
 }
 function uriEncode() {
@@ -16,22 +20,21 @@ function uriEncode() {
     <h1>Welcome to ReUri</h1>
     <h2>Encode and decode URIs</h2>
     <div class="tabs">
-      <button @click="tab = 'URI'" class="tab single" :class="{ 'active-tab': tab === 'URI' }">Single</button>
-      <button @click="tab = 'URIs'" class="tab multi" :class="{ 'active-tab': tab === 'URIs' }">Multiple</button>
-      <button @click="tab = 'File'" class="tab file" :class="{ 'active-tab': tab === 'File' }">File</button>
+      <label class="tab" :class="{ 'active-tab': activeInput === SingleUri }">Single
+        <input type="radio" v-model="activeInput" name="active-tab" id="single" :value="SingleUri" />
+      </label>
+      <label class="tab" :class="{ 'active-tab': activeInput === MultiUri }">Multiple
+        <input type="radio" v-model="activeInput" name="active-tab" id="multi" :value="MultiUri">
+      </label>
+      <label class="tab" :class="{ 'active-tab': activeInput === FileInput }">File
+        <input type="radio" v-model="activeInput" name="active-tab" id="file" :value="FileInput" />
+      </label>
     </div>
-    <input v-show="tab === 'URI'" type="text" class="uri-input single-url-input" placeholder="http://example.com">
-    <form v-show="tab === 'URIs'" class="input-form" @submit.prevent="uriDecode">
-      <textarea class="uri-input" type="url" name="uris" id="uris" placeholder="http://example.com
-https://example2.com"></textarea>
-      <label class="multi-label" for="uris">Enter a list of URIs each in its own line</label>
-    </form>
-    <FileInput v-show="tab === 'File'" />
-    <div class="form-btns">
-      <button v-show="tab !== 'URI'" type="submit" @click.prevent="uriEncode" id="encode-btn">Decode</button>
-      <button v-show="tab !== 'URI'" type="submit" @click.prevent="uriDecode" id="decode-btn">Encode</button>
-    </div>
-    <DiffOutput v-show="tab !== 'URI' && payload" />
+    <Transition mode="out-in" name="slide">
+      <component :is="activeInput"></component>
+    </Transition>
+
+
   </div>
 </template>
 
@@ -57,6 +60,15 @@ https://example2.com"></textarea>
   border-bottom: 2px solid transparent;
   background-color: var(--color-element-bg);
   color: var(--color-fg);
+  cursor: pointer;
+}
+
+.tab input {
+  display: none;
+}
+
+.tab-inputs {
+  width: inherit;
 }
 
 .tab:first-child {
@@ -147,7 +159,7 @@ button {
   background-color: var(--color-green);
   color: var(--color-bg);
   cursor: pointer;
-  transition: border-color 0.25s;
+  Transition: border-color 0.25s;
 }
 
 button:hover {
@@ -157,5 +169,48 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: all 0.4s ease;
+}
+
+.slide-leave-from,
+.slide-enter-to {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-enter-from {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.fade-in-leave-to,
+.fade-in-enter-from {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.fade-in-leave-from,
+.fade-in-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-leave-active,
+.fade-in-enter-active {
+  transition: all 1.6s ease
+}
+
+.fade-in-enter-active {
+  transition: all 1.6s ease
 }
 </style>

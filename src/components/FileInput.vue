@@ -10,6 +10,12 @@
                 <label class="file-chooser" for="selectFile">{{ chooserLabel() }}</label>
                 <input type="file" accept="text/*" name="Upload" id="selectFile" @change="handleChange">
             </div>
+            <Transition name="slide">
+                <div class="form-btns">
+                    <button type="submit" @click.prevent="uriEncode" id="encode-btn">Decode</button>
+                    <button type="submit" @click.prevent="uriDecode" id="decode-btn">Encode</button>
+                </div>
+            </Transition>
         </form>
 
     </div>
@@ -26,7 +32,8 @@ const defaultFile = {
     fileType: '',
 }
 let file = ref(defaultFile)
-
+function uriEncode() { }
+function uriDecode() { }
 function chooserLabel() {
     if (file.value.fileName) {
         return "Select Different File"
@@ -89,6 +96,15 @@ function handleDrop(e: DragEvent) {
     overflow-x: auto;
 }
 
+.form-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    place-content: center;
+}
+
+
 label {
     font-size: 1.2rem;
 }
@@ -100,5 +116,27 @@ input {
 form {
     display: flex;
     flex-direction: column;
+}
+
+button {
+    border-radius: 10px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: var(--color-green);
+    color: var(--color-bg);
+    cursor: pointer;
+    Transition: border-color 0.25s;
+}
+
+button:hover {
+    border-color: var(--color-green);
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
 }
 </style>
