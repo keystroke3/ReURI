@@ -9,11 +9,12 @@ const inputError = ref(false)
 const mode = ref('')
 
 function convert(action: string) {
-  if (!inputUris.value) {
+  if (!inputUris.value.trim()) {
     inputError.value = true
     setTimeout(() => {
       inputError.value = false
-    }, 2000)
+    }, 1000)
+    return
   }
   const uris = inputUris.value.split('\n')
   converted.value = uris.map((uri) => {
@@ -27,8 +28,10 @@ function convert(action: string) {
 <template>
   <div class="multi-uri">
     <form class="input-form" @submit.prevent="convert('encode')">
-      <textarea v-model="inputUris" class="uri-input frost" type="url" name="uris" id="uris" placeholder="http://example.com
+      <textarea v-model="inputUris" class="uri-input frost" :class="{ 'input-error': inputError }" type="url"
+        name="uris" id="uris" placeholder="http://example.com
 https://example2.com"></textarea>
+
       <label class="multi-label" for="uris">Enter a list of URIs each in its own line</label>
       <div class="form-btns">
         <button type="submit" @click.prevent="convert('decode')" id="encode-btn">Decode</button>
@@ -108,6 +111,35 @@ button {
   &:focus,
   &:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+.input-error {
+  border-color: var(--color-red);
+  animation: wobble 0.82s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes wobble {
+
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+
+  40%,
+  60% {
+    transform: translateX(4px);
   }
 }
 </style>

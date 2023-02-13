@@ -3,16 +3,17 @@
 import { ref, watch } from 'vue';
 const inputUri = ref('')
 const outputUri = ref('')
+const inputError = ref(false)
 const mode = ref('decode')
-function encodeDecode() {
+function convert() {
   outputUri.value = mode.value === 'encode' ? encodeURIComponent(inputUri.value) : decodeURIComponent(inputUri.value)
 }
 
 watch(inputUri, (inputUri, prev) => {
-  encodeDecode()
+  convert()
 })
 watch(mode, (mode, prev) => {
-  encodeDecode()
+  convert()
 })
 </script>
 
@@ -26,8 +27,11 @@ watch(mode, (mode, prev) => {
         <input type="radio" v-model="mode" name="active-tab" id="single" value='encode' /> Encode
       </label>
     </div>
-    <input class="url-input frost" v-model="inputUri" type="text"
+
+    <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="url-input frost"
+      v-model="inputUri" type="text" :class="{ 'input-error': inputError }"
       :placeholder="mode === 'encode' ? 'http://example.com' : 'https%3A%2F%2Fexample.com'">
+
     <Transition name="drop">
       <p v-show="inputUri" class="frost">
         <a target="_blank" :href="outputUri">{{ outputUri }}</a>
