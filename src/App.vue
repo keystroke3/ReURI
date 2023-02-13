@@ -35,44 +35,54 @@ watch(activeTab, (from, to) => {
 
 <template>
   <div class="main">
-    <h1>Welcome to ReURI</h1>
-    <h2>Quickly encode and decode URIs</h2>
-    <div class="tabs">
-      <label class="tab" :class="{ 'active-tab': activeTab === SingleUri }">Single
-        <input type="radio" v-model="activeTab" name="active-tab" id="single" :value="SingleUri" />
-      </label>
-      <label class="tab" :class="{ 'active-tab': activeTab === MultiUri }">Multiple
-        <input type="radio" v-model="activeTab" name="active-tab" id="multi" :value="MultiUri">
-      </label>
-      <label class="tab" :class="{ 'active-tab': activeTab === FileInput }">File
-        <input type="radio" v-model="activeTab" name="active-tab" id="file" :value="FileInput" />
-      </label>
-    </div>
-    <Transition appear mode="out-in" :name="animation">
-      <component :is="activeTab"></component>
-    </Transition>
+    <div class="content">
+      <h1>Welcome to ReURI</h1>
+      <h2>Quickly encode and decode URIs</h2>
+      <div class="tabs">
+        <label class="tab" :class="{ 'active-tab': activeTab === SingleUri }">Single
+          <input type="radio" v-model="activeTab" name="active-tab" id="single" :value="SingleUri" />
+        </label>
+        <label class="tab" :class="{ 'active-tab': activeTab === MultiUri }">Multiple
+          <input type="radio" v-model="activeTab" name="active-tab" id="multi" :value="MultiUri">
+        </label>
+        <label class="tab" :class="{ 'active-tab': activeTab === FileInput }">File
+          <input type="radio" v-model="activeTab" name="active-tab" id="file" :value="FileInput" />
+        </label>
+      </div>
+      <transition appear mode="out-in" :name="animation">
+        <component :is="activeTab"></component>
+      </transition>
 
-    <ul class="circles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+      <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+    <footer>
+      <ul>
+        <li>
+          Github:
+          <a href="http://github.com/keystroke3" target="_blank" rel="noopener noreferrer">keystroke3</a>
+        </li>
+        <li>
+          Twitter:
+          <a href="http://twitter.com/keystroke_3" target="_blank" rel="noopener noreferrer">keystroke_3</a>
+        </li>
+        <li>
+          Email:
+          <a href="mailto:keystroke33@gmail.com">keystroke33@gmail.com</a>
+        </li>
+      </ul>
+      <p>© {{ new Date().getFullYear() }}</p>
+    </footer>
   </div>
-  <footer>
-    <ul>
-      <li>Github: <a href="http://github.com/keystroke3" target="_blank" rel="noopener noreferrer">keystroke3</a></li>
-      <li>Twitter: <a href="http://twitter.com/keystroke_3" target="_blank" rel="noopener noreferrer">keystroke_3</a>
-      </li>
-      <li>Email: <a href="mailto:keystroke33@gmail.com">keystroke33@gmail.com</a></li>
-      <!-- <li>Other: <a href="http://github.com/keystroke3" target="_blank" rel="noopener noreferrer">Tools</a></li> -->
-    </ul>
-    <p>© {{ new Date().getFullYear() }}</p>
-  </footer>
 </template>
 
 <style scoped lang="scss">
@@ -184,12 +194,41 @@ SOURCE: https://codepen.io/mohaiman/pen/MQqMyo
 
 
 .main {
+  height: 100vh;
+  position: relative;
+}
+
+.content {
+  text-align: center;
   width: min(95vw, 90rem);
   margin: 0 auto;
-  text-align: center;
-  flex: 1 0 auto;
-  min-height: calc(100vh - 4rem);
+  height: 100%;
+}
 
+footer {
+  height: 5rem;
+  flex-shrink: 0;
+  background-color: #ffffff24;
+  padding: 1rem;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 1rem;
+  }
+
+  li {
+    font-size: 1.2rem;
+  }
 }
 
 .tabs {
@@ -253,7 +292,7 @@ h1 {
 h2 {
   font-size: clamp(1.3rem, 1.9vw, 2.1rem);
   line-height: 1.1;
-  margin-block: 0 2rem
+  margin-bottom: 7rem;
 }
 
 label {
@@ -286,29 +325,5 @@ button {
     border-color: var(--color-green);
   }
 
-}
-
-footer {
-  margin-top: auto;
-  height: 5rem;
-  flex-shrink: 0;
-  background-color: #ffffff24;
-  padding: 1rem;
-  align-items: center;
-  text-align: center;
-
-
-  ul {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    column-gap: 1rem;
-  }
-
-  li {
-    font-size: 1.2rem;
-  }
 }
 </style>

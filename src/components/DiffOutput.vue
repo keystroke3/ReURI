@@ -2,11 +2,13 @@
     <div class="results">
         <div class="diff original">
             <label for="original">Original</label>
-            <textarea class="frost" name="original-urls" id="original">{{ originalValue }}</textarea>
+            <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="frost"
+                name="original-urls" id="original">{{ originalValue }}</textarea>
         </div>
         <div class="diff converted">
             <label for="converted">{{ props.mode === 'encode' ? 'Encoded' : 'Decoded' }}</label>
-            <textarea class="frost" name="converted-urls" id="converted">{{ convertedValue }}</textarea>
+            <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="frost"
+                name="converted-urls" id="converted">{{ convertedValue }}</textarea>
         </div>
     </div>
 </template>
@@ -29,7 +31,7 @@ const props = defineProps({
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .results {
     display: flex;
     width: inherit;

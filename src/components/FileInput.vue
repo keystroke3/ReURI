@@ -135,8 +135,8 @@ button {
     font-family: inherit;
     background-color: var(--color-green);
     color: var(--color-bg);
+    transition: border-color 0.25s;
     cursor: pointer;
-    Transition: border-color 0.25s;
 }
 
 button:hover {

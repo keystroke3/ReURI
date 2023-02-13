@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="41.197807mm"
+   height="41.197811mm"
+   viewBox="0 0 41.197807 41.197811"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <g
+     id="layer1"
+     transform="translate(-73.918306,-49.75368)">
+    <circle
+       style="fill:#44bba3;fill-opacity:1;stroke:none;stroke-width:0.63595;stroke-linejoin:round;paint-order:stroke markers fill"
+       id="path2456"
+       cx="94.517212"
+       cy="70.352585"
+       r="20.598902" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:45.1327px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.12832"
+       x="80.358078"
+       y="86.100502"
+       id="text2564"><tspan
+         id="tspan2562"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:45.1327px;font-family:Roboto;-inkscape-font-specification:'Roboto,  weight=250';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.12832"
+         x="80.358078"
+         y="86.100502">R</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:31.783px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.794575"
+       x="82.699356"
+       y="80.839676"
+       id="text2618"><tspan
+         id="tspan2616"
+         style="stroke-width:0.794575"
+         x="82.699356"
+         y="80.839676">e</tspan></text>
+  </g>
+</svg>
