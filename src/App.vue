@@ -1,10 +1,36 @@
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue';
+import { ref, shallowRef, watch } from 'vue';
 import FileInput from './components/FileInput.vue'
 import SingleUri from './components/SingleUri.vue';
 import MultiUri from './components/MultiUri.vue';
 
 const activeTab = shallowRef(SingleUri)
+const animation = ref('slide-leftwards')
+
+watch(activeTab, (from, to) => {
+  const seek = from.__name! + to.__name
+  switch (seek) {
+    case 'SingleUriMultiUri':
+      animation.value = 'slide-rightwards'
+      break;
+    case 'MultiUriFileInput':
+      animation.value = 'slide-rightwards'
+      break;
+    case 'FileInputMultiUri':
+      animation.value = 'slide-leftwards'
+      break;
+    case 'MultiUriSingleUri':
+      animation.value = 'slide-leftwards'
+      break;
+    case 'SingleUriFileInput':
+      animation.value = 'slide-rightwards'
+      break;
+    default:
+      animation.value = 'slide-leftwards'
+      break;
+  }
+})
+
 </script>
 
 <template>
@@ -22,7 +48,7 @@ const activeTab = shallowRef(SingleUri)
         <input type="radio" v-model="activeTab" name="active-tab" id="file" :value="FileInput" />
       </label>
     </div>
-    <Transition appear mode="out-in" name="slide">
+    <Transition appear mode="out-in" :name="animation">
       <component :is="activeTab"></component>
     </Transition>
 
@@ -221,7 +247,6 @@ h1 {
   line-height: 1.1;
   padding-top: 3rem;
   margin-bottom: 0.5rem;
-  font-family: Poppins, "Tsukimi Rounded", "Source Sans 3", Recursive, Montserrat;
   font-weight: 100;
 }
 
