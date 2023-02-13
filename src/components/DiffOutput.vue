@@ -2,27 +2,40 @@
     <div class="results">
         <div class="diff original">
             <label for="original">Original</label>
-            <textarea name="original-urls" id="original">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, pariatur sint omnis minima temporibus velit consectetur modi optio perferendis repellat dolor tempora similique ad totam voluptatibus quibusdam earum corrupti cumque!
-        </textarea>
+            <textarea class="frost" name="original-urls" id="original">{{ originalValue }}</textarea>
         </div>
         <div class="diff converted">
-            <label for="converted">Converted</label>
-            <textarea name="converted-urls" id="converted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum qui ratione laudantium fuga expedita dignissimos, ab adipisci nobis! Nesciunt doloribus, aliquam nulla sit officiis in? Distinctio explicabo dolore qui exercitationem!
-        </textarea>
+            <label for="converted">{{ props.mode === 'encode' ? 'Encoded' : 'Decoded' }}</label>
+            <textarea class="frost" name="converted-urls" id="converted">{{ convertedValue }}</textarea>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+
+const props = defineProps({
+    mode: {
+        type: String,
+        default: 'encode',
+    },
+    convertedValue: {
+        type: String
+    },
+    originalValue: {
+        type: String
+    }
+
+})
+
 </script>
 
 <style scoped>
 .results {
     display: flex;
-    /* flex-wrap: wrap; */
     width: inherit;
     gap: 2rem;
     margin-top: 2%;
+    margin-bottom: 5%;
     flex-wrap: wrap;
 }
 
@@ -53,5 +66,6 @@ textarea {
     overflow: auto;
     height: 20rem;
     padding: 1rem;
+    font-size: 1.1rem;
 }
 </style>

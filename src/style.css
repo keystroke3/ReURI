@@ -1,18 +1,23 @@
 :root {
 	--color-bg: hsl(203, 7%, 24%);
 	--color-fg: hsl(65, 43%, 95%);
-	--color-blue: hsl(207, 54%, 51%);
+	--color-blue: hsl(229, 48%, 54%);
+	--color-blue-light: hsl(207, 54%, 51%);
 	--color-green: hsl(168, 47%, 50%);
 	--color-red: hsl(8, 80%, 56%);
 	--color-text: hsl(65, 43%, 95%);
-	--color-element-bg: hsl(203, 7%, 20%);
+	/* --color-element-bg: hsl(203, 7%, 20%, 40%); */
+	--color-element-bg: hsl(65, 43%, 95%, 10%);
 
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
 	color-scheme: light dark;
 	color: var(--color-fg);
-	background-color: var(--color-bg);
+	/* background: #4e54c8; */
+	/* background: linear-gradient(to left var(--color-blue), var(--color-blue-light)); */
+	background: linear-gradient(to left, #4b51c7, #3b409c);
+	/* background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8); */
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -40,20 +45,54 @@ a {
 body {
 	margin: 0;
 	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
-#app {
-	width: 1280;
+.frost {
+	backdrop-filter: blur(15px);
 }
 
-/* @media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
-	a:hover {
-		color: #747bff;
-	}
-	button {
-		background-color: #f9f9f9;
-	}
-} */
+/* VUE TRANSITION CLASSES */
+.drop-leave-active,
+.drop-enter-active {
+	transition: all 0.5s ease;
+}
+
+.drop-leave-from,
+.drop-enter-to {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.drop-enter-from {
+	opacity: 0;
+	transform: translateY(-50px);
+}
+
+.drop-leave-to {
+	opacity: 0;
+	transform: translateY(50px);
+}
+
+.slide-leave-active,
+.slide-enter-active {
+	transition: all 0.4s ease-in-out;
+}
+
+.slide-leave-from,
+.slide-enter-to {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.slide-enter-from {
+	opacity: 0;
+	transform: translateX(-50px);
+}
+
+.slide-leave-to {
+	opacity: 0;
+	transform: translateX(50px);
+}
+
+/*  END VUE TRANSITIONS */

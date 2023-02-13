@@ -1,33 +1,47 @@
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue';
+import { ref } from 'vue';
 import DiffOutput from './DiffOutput.vue';
-let payload = ref('')
-function uriDecode() {
+
+const inputUris = ref('')
+const expandedInput = ref('')
+const converted = ref('')
+const inputError = ref(false)
+const mode = ref('')
+
+function convert(action: string) {
+  if (!inputUris.value) {
+    inputError.value = true
+    setTimeout(() => {
+      inputError.value = false
+    }, 2000)
+  }
+  const uris = inputUris.value.split('\n')
+  converted.value = uris.map((uri) => {
+    return action === 'decode' ? decodeURIComponent(uri) : encodeURIComponent(uri)
+  }).join('\n\n')
+  expandedInput.value = uris.join('\n\n')
+  mode.value = action
 }
-function uriEncode() { }
 </script>
 
 <template>
-
-  <form class="input-form" @submit.prevent="uriDecode">
-    <textarea v-bind="payload" class="uri-input" type="url" name="uris" id="uris" placeholder="http://example.com
+  <div class="multi-uri">
+    <form class="input-form" @submit.prevent="convert('encode')">
+      <textarea v-model="inputUris" class="uri-input frost" type="url" name="uris" id="uris" placeholder="http://example.com
 https://example2.com"></textarea>
-    <label class="multi-label" for="uris">Enter a list of URIs each in its own line</label>
-    <div class="form-btns">
-      <button type="submit" @click.prevent="uriEncode" id="encode-btn">Decode</button>
-      <button type="submit" @click.prevent="uriDecode" id="decode-btn">Encode</button>
-    </div>
-    <span class="char-count">{{
-      payload.length + '/' + 5000
-    }}</span>
-    <Transition name="slide">
-      <DiffOutput v-show="payload" />
+      <label class="multi-label" for="uris">Enter a list of URIs each in its own line</label>
+      <div class="form-btns">
+        <button type="submit" @click.prevent="convert('decode')" id="encode-btn">Decode</button>
+        <button type="submit" @click.prevent="convert('encode')" id="decode-btn">Encode</button>
+      </div>
+    </form>
+    <Transition name="drop">
+      <DiffOutput v-show="mode" :mode="mode" :original-value="expandedInput" :converted-value="converted" />
     </Transition>
-  </form>
-
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .form-btns {
   display: flex;
   gap: 1rem;
@@ -38,6 +52,10 @@ https://example2.com"></textarea>
 
 .multi-label {
   font-size: 1.2rem;
+}
+
+.multi-uri {
+  width: inherit;
 }
 
 label {
@@ -78,37 +96,18 @@ button {
   background-color: var(--color-green);
   color: var(--color-bg);
   cursor: pointer;
-  Transition: border-color 0.25s;
-}
+  transition: border-color 0.25s;
 
-button:hover {
-  border-color: var(--color-green);
-}
+  &:hover {
+    border-color: var(--color-green);
+    background-color: var(--color-blue);
+    color: var(--color-fg);
+    transition: all 0.5s ease;
+  }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.slide-leave-active,
-.slide-enter-active {
-  transition: all 4.4s ease;
-}
-
-.slide-leave-from,
-.slide-enter-to {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.slide-enter-from {
-  opacity: 0;
-  transform: translateY(-50px);
-}
-
-
-.slide-leave-to {
-  opacity: 0;
-  transform: translateY(50px);
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
 }
 </style>
