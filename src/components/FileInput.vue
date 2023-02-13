@@ -1,6 +1,6 @@
 <template >
     <div>
-        <form>
+        <form v-if="ready">
             <div @dragenter.prevent="toggleActive" @dragleave.prevent="toggleActive" @dragover.prevent
                 @drop.prevent="handleDrop" class="dropzone"
                 :class="{ 'active-dropzone': active, 'file-selected': file.fileName }">
@@ -17,13 +17,14 @@
                 </div>
             </Transition>
         </form>
-
+        <h1 v-if="!ready"> Coming Soon ... </h1>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 const active = ref(false)
+const ready = ref(false)
 function toggleActive() {
     active.value = !active.value
 }
@@ -104,6 +105,13 @@ function handleDrop(e: DragEvent) {
     place-content: center;
 }
 
+h1 {
+    font-size: clamp(2.3rem, 4.5vw, 4rem);
+    line-height: 1.1;
+    padding-top: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 100;
+}
 
 label {
     font-size: 1.2rem;
