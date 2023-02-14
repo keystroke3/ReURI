@@ -65,23 +65,6 @@ watch(activeTab, (from, to) => {
       </ul>
     </div>
 
-    <footer>
-      <ul>
-        <li>
-          Github:
-          <a href="http://github.com/keystroke3" target="_blank" rel="noopener noreferrer">keystroke3</a>
-        </li>
-        <li>
-          Twitter:
-          <a href="http://twitter.com/keystroke_3" target="_blank" rel="noopener noreferrer">keystroke_3</a>
-        </li>
-        <li>
-          Email:
-          <a href="mailto:keystroke33@gmail.com">keystroke33@gmail.com</a>
-        </li>
-      </ul>
-      <p>© {{ new Date().getFullYear() }}</p>
-    </footer>
   </div>
 </template>
 
