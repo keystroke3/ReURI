@@ -7,7 +7,6 @@
 	--color-red: hsl(8, 80%, 56%);
 	--color-yellow: hsl(61, 80%, 56%);
 	--color-text: hsl(65, 43%, 95%);
-	/* --color-element-bg: hsl(203, 7%, 20%, 40%); */
 	--color-element-bg: hsl(65, 43%, 95%, 10%);
 
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -16,7 +15,6 @@
 	color-scheme: light dark;
 	color: var(--color-fg);
 	background: linear-gradient(to left, #4b51c7, #3b409c);
-	background: -webkit-linear-gradient(to left, #4b51c7, #3b409c);
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -36,7 +34,12 @@
 	outline: transparent;
 	-webkit-tap-highlight-color: transparent;
 }
-
+::placeholder {
+	color: hsl(65, 43%, 95%, 60%);
+}
+html {
+	height: 100%;
+}
 body {
 	margin: 0;
 	min-height: 100vh;

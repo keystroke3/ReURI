@@ -75,6 +75,10 @@ watch(activeTab, (from, to) => {
           <a href="http://twitter.com/keystroke_3" target="_blank" rel="noopener noreferrer">keystroke_3</a>
         </li>
         <li>
+          Blog:
+          <a href="http://dev.to/keystroke3" target="_blank" rel="noopener noreferrer">Dev.to</a>
+        </li>
+        <li>
           Email:
           <a href="mailto:keystroke33@gmail.com">keystroke33@gmail.com</a>
         </li>
@@ -194,27 +198,26 @@ SOURCE: https://codepen.io/mohaiman/pen/MQqMyo
 
 
 .main {
-  height: 100vh;
-  position: relative;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .content {
   text-align: center;
   width: min(95vw, 90rem);
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 0;
   height: 100%;
 }
 
 footer {
-  height: 5rem;
-  flex-shrink: 0;
   background-color: #ffffff24;
-  padding: 1rem;
   align-items: center;
   text-align: center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  padding-top: 1rem;
+  transition: all 3s ease-in-out;
 
 
   ul {
@@ -292,7 +295,7 @@ h1 {
 h2 {
   font-size: clamp(1.3rem, 1.9vw, 2.1rem);
   line-height: 1.1;
-  margin-bottom: 7rem;
+  margin-bottom: clamp(3.5rem, 6vh, 7rem);
 }
 
 label {
