@@ -1,18 +1,70 @@
-# Vue 3 + TypeScript + Vite
+# ReURI
+### Welcome to [ReURI](https://reuri.okello.io), a simple url encoder and decoder.
+ReURI is a simple tool for converting urls between their encoded forms, eg. `https%3A%2F%2Fexample.com` and their
+unencoded eg. `https://example.com`.
+## Why??
+I had an issue when I was looking at my server access logs where some urls where encoded by the browser. I wanted
+to be able to follow those links and see where they lead to. I could make a a CLI tool to do that, but I decided to make it
+a web app so others can use it.
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Why Vue?
+It is simple and I am good at using it.
 
-## Recommended IDE Setup
+## Self Hosting
+If you want to self host ReURI, it's simple. 
+Clone the repo:
+```shell
+git clone https://github.com/keystroke3/ReURI.git
+```
+[Install yarn](https://classic.yarnpkg.com/lang/en/docs/install/)
+```shell
+npm install --global yarn
+```
+Install dependencies and build:
+```shell
+cd ReURI
+yarn install
+yarn build
+```
+Use a http server to serve the files in `dist` directory.  
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Node
+```shell
+npm install http-server -g
+http-server dist -p 3000
+```
+### Python
+You can use python's built in http server
+```shell
+python -m http.server 3000 --directory dist
+```
+### Apache2
+```apache
+<VirtualHost *:3000>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /path/to/ReURI/dist
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+### Nginx
+```Nginx
+server {
+    listen 80;
+    server_name awesome-server-name.tld;
+    location / {
+        root /path/to/ReURI/dist/;
+        add_header Cache-Control "public, no-transform";
+        try_files $uri $uri/ /index.html =404;
+    }
+    access_log /some/path/nginx_access.log;
+    error_log /some/path/nginx_error.log;
 
-## Type Support For `.vue` Imports in TS
+}
+```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Todo
+- [ ] Add file support
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+For queries, compliments, complaints: Twitter: [@keystroke3](https://twitter.com/keystroke_3), Email: [keystroke33@gmail.com](mailto:keystroke33@gmail.com)
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
